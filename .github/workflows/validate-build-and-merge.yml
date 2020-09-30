@@ -19,8 +19,8 @@ jobs:
     - name: Install Tailwind CSS
       run: npm ci
   verify:
-    name: Verify PR integrity
     needs: setup
+    name: Verify PR integrity
     - shell: bash
       run: |
         if [ $(git diff --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
@@ -36,16 +36,16 @@ jobs:
           exit 1
         fi
   validate:
+    needs: [setup, verify]
     name: Validate Config File
-    needs: setup
       run: |
         CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
         node validate.js $CONFIG_FILE
       env:
         CI: true
   build:
+    needs: [setup, verify, validate]
     name: Build Tailwind
-    needs: setup
     steps:
       - name: Run Tailwind
         run: |
@@ -59,6 +59,7 @@ jobs:
         with:
           commit_message: Add Build file
   merge:
+  needs: [setup, verify, validate, build]
     name: Merge Into master
     uses: "pascalgn/automerge-action@v0.11.0"
     env:
