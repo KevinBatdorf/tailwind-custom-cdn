@@ -21,31 +21,35 @@ jobs:
   verify:
     needs: setup
     name: Verify PR integrity
-    shell: bash
-    run: |
-      if [ $(git diff --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
-        echo "Only PR one file update at a time."
-        exit 1
-      fi
-      if [ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != 1 ]; then
-        echo "You may only add files. Leave this PR open for discussion."
-        exit 1
-      fi
-      if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != configs* ]]; then
-        echo "You may only add files to the configs directory. You may add subdirectories as needed."
-        exit 1
-      fi
+    steps:
+    - shell: bash
+      run: |
+        if [ $(git diff --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
+          echo "Only PR one file update at a time."
+          exit 1
+        fi
+        if [ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != 1 ]; then
+          echo "You may only add files. Leave this PR open for discussion."
+          exit 1
+        fi
+        if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != configs* ]]; then
+          echo "You may only add files to the configs directory. You may add subdirectories as needed."
+          exit 1
+        fi
   validate:
     needs: [setup, verify]
     name: Validate Config File
-    run: |
-      CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
-      node validate.js $CONFIG_FILE
+    steps:
+    - shell: bash
+      run: |
+        CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
+        node validate.js $CONFIG_FILE
   build:
     needs: [setup, verify, validate]
     name: Build Tailwind
     steps:
       - name: Run Tailwind
+        shell: bash
         run: |
           CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
           OUTPUT_FILE="builds/"
