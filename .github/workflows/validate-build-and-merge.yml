@@ -1,0 +1,59 @@
+name: Validate, Build, and Merge
+
+# Check that there is only one config file added, optionally in a folder
+# Check that the file is a valid tailwind config file
+# Build the config, then re-commit to this PR branch
+# If all goes well, merge into master
+
+on: pull_request
+
+jobs:
+  build_and_process:
+    name: Build and Process
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: Install Tailwind CSS
+        run: npm ci
+      - name: Verify PR integrity
+        shell: bash
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
+          if [ $(git diff --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
+            echo "Only PR one file update at a time."
+            exit 1
+          fi
+          if [ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != 1 ]; then
+            echo "You may only add files. Leave this PR open for discussion."
+            exit 1
+          fi
+          if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != configs* ]]; then
+            echo "You may only add files to the configs directory. You may add subdirectories as needed."
+            exit 1
+          fi
+      - name: Validate Config File
+        shell: bash
+        run: |
+          CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
+          node validate.js $CONFIG_FILE
+      - name: Build Tailwind
+        shell: bash
+        run: |
+          CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
+          OUTPUT_FILE="builds/"
+          OUTPUT_FILE+=${CONFIG_FILE#"configs/"}
+          npm run build $CONFIG_FILE
+          npx tailwindcss build style.css -o $OUTPUT_FILE -c $CONFIG_FILE
+      - name: Commit files into build folder
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Add Build file
+      - name: Merge into master
+        uses: "pascalgn/automerge-action@v0.11.0"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
