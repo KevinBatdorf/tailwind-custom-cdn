@@ -63,6 +63,7 @@ jobs:
   merge:
     needs: [setup, verify, validate, build]
     name: Merge Into master
-    uses: "pascalgn/automerge-action@v0.11.0"
-    env:
-      GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+    steps:
+    - uses: "pascalgn/automerge-action@v0.11.0"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
