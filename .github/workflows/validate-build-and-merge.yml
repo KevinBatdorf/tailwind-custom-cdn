@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '14'
       - name: Install Tailwind CSS
-        run: npm ci
+        run: npm install
       - name: Verify PR integrity
         shell: bash
         env:
