@@ -19,8 +19,9 @@ jobs:
     - name: Install Tailwind CSS
       run: npm ci
   verify:
-    needs: setup
     name: Verify PR integrity
+    needs: setup
+    runs-on: ubuntu-latest
     steps:
     - shell: bash
       run: |
@@ -37,16 +38,18 @@ jobs:
           exit 1
         fi
   validate:
-    needs: [setup, verify]
     name: Validate Config File
+    needs: [setup, verify]
+    runs-on: ubuntu-latest
     steps:
     - shell: bash
       run: |
         CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
         node validate.js $CONFIG_FILE
   build:
-    needs: [setup, verify, validate]
     name: Build Tailwind
+    needs: [setup, verify, validate]
+    runs-on: ubuntu-latest
     steps:
       - name: Run Tailwind
         shell: bash
@@ -61,8 +64,9 @@ jobs:
         with:
           commit_message: Add Build file
   merge:
-    needs: [setup, verify, validate, build]
     name: Merge Into master
+    needs: [setup, verify, validate, build]
+    runs-on: ubuntu-latest
     steps:
     - uses: "pascalgn/automerge-action@v0.11.0"
       env:
