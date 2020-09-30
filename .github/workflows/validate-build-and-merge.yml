@@ -24,6 +24,7 @@ jobs:
       - name: Verify PR integrity
         shell: bash
         run: |
+          git remote
           if [ $(git diff --name-only `git merge-base master HEAD` | wc -l) != 1 ]; then
             echo "Only PR one file update at a time."
             exit 1
