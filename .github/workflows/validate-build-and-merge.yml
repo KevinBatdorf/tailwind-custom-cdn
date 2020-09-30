@@ -27,19 +27,19 @@ jobs:
         env:
           BASE: ${{ github['base_ref'] }}
         run: |
-          # git fetch --no-tags --prune --depth=1 origin +refs/heads/${BASE}:refs/remotes/origin/${BASE}
-          # if [ $(git diff --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
-          #   echo "Only PR one file update at a time."
-          #   exit 1
-          # fi
-          # if [ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
-          #   echo "You may only add files. Leave this PR open for discussion."
-          #   exit 1
-          # fi
-          # if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != configs* ]]; then
-          #   echo "You may only add files to the configs directory. You may add subdirectories as needed."
-          #   exit 1
-          # fi
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/${BASE}:refs/remotes/origin/${BASE}
+          if [ $(git diff --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
+            echo "Only PR one file update at a time."
+            exit 1
+          fi
+          if [ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
+            echo "You may only add files. Leave this PR open for discussion."
+            exit 1
+          fi
+          if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != configs* ]]; then
+            echo "You may only add files to the configs directory. You may add subdirectories as needed."
+            exit 1
+          fi
       - name: Validate Config File
         shell: bash
         run: |
