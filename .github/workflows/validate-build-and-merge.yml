@@ -51,7 +51,6 @@ jobs:
           CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
           OUTPUT_FILE="builds/"
           OUTPUT_FILE+=${CONFIG_FILE#"configs/"}
-          echo $OUTPUT_FILE
           npx tailwindcss build style.css -o $OUTPUT_FILE -c $CONFIG_FILE
           git status
       - name: Commit files into build folder
