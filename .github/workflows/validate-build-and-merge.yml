@@ -23,8 +23,7 @@ jobs:
       - name: Verify PR integrity
         shell: bash
         run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
-          git diff --name-only `git merge-base origin/master HEAD`
+          git fetch --no-tags --depth=1 origin master
           if [ $(git diff --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
             echo "Only PR one file update at a time."
             exit 1
