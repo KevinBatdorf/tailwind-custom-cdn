@@ -32,8 +32,7 @@ jobs:
           #   echo "Only PR one file update at a time."
           #   exit 1
           # fi
-          git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`
-          if [ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != 1 ]; then
+          if [ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
             echo "You may only add files. Leave this PR open for discussion."
             exit 1
           fi
