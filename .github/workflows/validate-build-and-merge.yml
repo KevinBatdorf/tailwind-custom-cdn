@@ -17,8 +17,7 @@ jobs:
       with:
         node-version: '12'
     - name: Install Tailwind CSS
-      run: |
-        npm ci
+      run: npm ci
   verify:
     name: Verify PR integrity
     needs: setup
