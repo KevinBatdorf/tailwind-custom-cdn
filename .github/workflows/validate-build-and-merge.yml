@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '14'
       - name: Install Tailwind CSS
-        run: npm install
+        run: npm ci
       - name: Verify PR integrity
         shell: bash
         env:
@@ -51,7 +51,6 @@ jobs:
           CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
           OUTPUT_FILE="builds/"
           OUTPUT_FILE+=${CONFIG_FILE#"configs/"}
-          npm run build $CONFIG_FILE
           npx tailwindcss build style.css -o $OUTPUT_FILE -c $CONFIG_FILE
       - name: Commit files into build folder
         uses: stefanzweifel/git-auto-commit-action@v4
