@@ -1,7 +1,8 @@
 name: Auto Tag
 
-on: push
-  branches: master
+on:
+  push:
+    branches: master
 
 jobs:
   tailwind_tag_plus_increment:
