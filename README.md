@@ -18,8 +18,8 @@ The system will auto release on any push to master. After a few minutes, you sho
 <!-- Always stay current -->
 <script src="https://cdn.jsdelivr.net/gh/kevinbatdorf/tailwind-custom-cdn/builds/example.min.css"></script>
 
-<!-- Tie to a specific Tailwind CSS version -->
-<script src="https://cdn.jsdelivr.net/gh/kevinbatdorf/tailwind-custom-cdn@t1.8/builds/example.min.css"></script>
+<!-- Tie the current version (use the tag that was created during the build) -->
+<script src="https://cdn.jsdelivr.net/gh/kevinbatdorf/tailwind-custom-cdn@v1.8.10-0-1-0-282636193-24/builds/example.min.css"></script>
 ```
 
 
