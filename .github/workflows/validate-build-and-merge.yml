@@ -9,8 +9,8 @@ on: pull_request
 
 jobs:
   build_and_process:
-    if: github.actor != "dependabot-preview[bot]"
     name: Build and Process
+    if: github.actor != 'dependabot-preview[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
