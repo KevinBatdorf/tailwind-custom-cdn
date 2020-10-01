@@ -1,4 +1,5 @@
 name: Validate, Build, and Merge
+if: github.actor != "dependabot-preview[bot]"
 
 # Check that there is only one config file added, optionally in a folder
 # Check that the file is a valid tailwind config file
