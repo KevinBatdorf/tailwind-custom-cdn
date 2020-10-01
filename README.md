@@ -8,7 +8,6 @@ A simple, automated tool for creating custom Tailwind CSS builds for CDN access.
 1. Submit a PR with a config file under the `configs/` directory. You may use subfolders if you wish. If you add any other file the PR will fail. The PR should have only a single, standard Tailwind CSS config file.
 2. If all goes well, The PR will auto merge and a Release will be created.
 3. Every time there is a new release from Tailwind CSS, a new build will be created
-> ⚠ Be polite and keep the file names appropriate enough. We're all adults here :)
 
 ## How to use
 The system will auto release on any push to master. After a few minutes, you should be able to use your script in the following way:
@@ -24,6 +23,11 @@ The system will auto release on any push to master. After a few minutes, you sho
 ```
 
 
+## Guidelines
+- Be polite and keep the file names appropriate enough.
+- Do not use any official sounding directory name unless you have the rights.
+- Do not try to mess things up. If you find a bug, be nice and open an issue.
+
 ## FAQ
 **Question:** Can I use this in production?
 
@@ -38,3 +42,8 @@ The system will auto release on any push to master. After a few minutes, you sho
 **Question:** What about plugins?
 
 **Answer:** Plugins aren't supported now, and I haven't looked into it. If there is some demand for plugins then I'll look into adding plugin support.
+
+##
+**Question:** Can others use my config file?
+
+**Answer:** Yes, so just keep that in mind and don't include anything considered sensitive data in your config file. I can delete the config file if needed but won't be able to prune the entire git history.
