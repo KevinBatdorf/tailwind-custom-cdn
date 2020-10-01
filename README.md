@@ -1,4 +1,4 @@
-# Automatic Tailwind CSS CND Builds For Rapid Prototyping
+# Automatic Tailwind CSS CDN Builds For Rapid Prototyping
 
 A simple, automated tool for creating custom Tailwind CSS builds for CDN access. Use this for development when you don't want to deal with setting up a builder right away.
 
