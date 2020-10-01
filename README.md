@@ -37,4 +37,4 @@ The system will auto release on any push to master. After a few minutes, you sho
 ##
 **Question:** What about plugins?
 
-**Answer:** Plugins aren't supported now, and I haven't looked into it. If there is some demand for plugins then I'll look into adding plugin support
+**Answer:** Plugins aren't supported now, and I haven't looked into it. If there is some demand for plugins then I'll look into adding plugin support.
