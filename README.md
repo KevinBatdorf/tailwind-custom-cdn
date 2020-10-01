@@ -9,6 +9,8 @@ A simple, automated tool for creating custom Tailwind CSS builds for CDN access.
 2. If all goes well, The Pull Request will automatically merge into master, and a release will be created.
 3. Every time there is a new release from Tailwind CSS, a new build will be created.
 
+> Shy to make a Pull Request? That's understandable! Check out the FAQs for how to run this on your own.
+
 ## How to use
 The system will auto release on any push to master. After a few minutes, you should be able to use your script in the following way:
 
@@ -31,6 +33,11 @@ The system will auto release on any push to master. After a few minutes, you sho
 **Question:** Can I use this in production?
 
 **Answer:** I wouldn't. For production you will want to use a build tool so that you can purge your unused CSS.
+
+##
+**Question:** Can I use this on my own?
+
+**Answer:** Definitely! That's encouraged even. Just fork this repository, then under "Interaction limits" on the settings tab, limit the Pull Requests to those with write access only. You will also have to make a Personal Access Token for GitHub and add it to the Secrets settings area. Name that `PA_TOKEN`. Open an issue if you run into any difficulties and I'll help out if I can.
 
 ##
 **Question:** Can I add multiple config files?
