@@ -32,7 +32,7 @@ The system will auto release on any push to master. After a few minutes, you sho
 
 **Answer:** I wouldn't. For production you will want to use a build tool so that you can purge your unused CSS.
 
-## FAQ
+##
 **Question:** Can I add multiple config files?
 
 **Answer:** Sure, but each Pull Request needs to have only one file added, so you would need to create a Pull Request for each.
