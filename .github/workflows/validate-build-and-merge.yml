@@ -1,5 +1,4 @@
 name: Validate, Build, and Merge
-if: github.actor != "dependabot-preview[bot]"
 
 # Check that there is only one config file added, optionally in a folder
 # Check that the file is a valid tailwind config file
@@ -11,6 +10,7 @@ on: pull_request
 jobs:
   build_and_process:
     name: Build and Process
+    if: github.actor != 'dependabot-preview[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
@@ -38,7 +38,11 @@ jobs:
             exit 1
           fi
           if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != configs* ]]; then
-            echo "You may only add files to the configs directory. You may add subdirectories as needed."
+            echo "You may only add new files to the configs directory. You may also add subdirectories as needed."
+            exit 1
+          fi
+          if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) =~ ^[\/0-9a-zA-Z._-]+$ ]]; then
+            echo "Keep filenames simple. Specifically to \/0-9a-zA-Z."
             exit 1
           fi
       - name: Validate Config File
