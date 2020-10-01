@@ -41,7 +41,7 @@ jobs:
             echo "You may only add new files to the configs directory. You may also add subdirectories as needed."
             exit 1
           fi
-          if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) =~ ^[\/0-9a-zA-Z._-]+$ ]]; then
+          if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) =~ ^[\/0-9a-zA-Z._-]+$.js ]]; then
             echo "Keep filenames simple. Specifically to \/0-9a-zA-Z."
             exit 1
           fi
