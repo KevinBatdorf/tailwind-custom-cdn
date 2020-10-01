@@ -1,5 +1,4 @@
 name: Validate, Build, and Merge
-if: github.actor != "dependabot-preview[bot]"
 
 # Check that there is only one config file added, optionally in a folder
 # Check that the file is a valid tailwind config file
@@ -10,6 +9,7 @@ on: pull_request
 
 jobs:
   build_and_process:
+    if: github.actor != "dependabot-preview[bot]"
     name: Build and Process
     runs-on: ubuntu-latest
     steps:
