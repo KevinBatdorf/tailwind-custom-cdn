@@ -1,0 +1,29 @@
+name: Auto Tag
+
+on: push
+  branches: master
+
+jobs:
+  tailwind_tag_plus_increment:
+    name: Make Release based on Tailwind CSS version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+      - name: Install Tailwind CSS
+        run: |
+          npm ci
+          echo ::set-env name=TAILWIND_VERSION::$(npm view tailwindcss version)
+      - name: Tag with Tailwind CSS version prepended
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAILWIND_VERSION }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
