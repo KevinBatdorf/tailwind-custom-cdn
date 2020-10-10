@@ -6,11 +6,9 @@ A simple, automated tool for creating custom Tailwind CSS builds for CDN access.
 
 ## How it works
 1. Press "Use this template"
-1. Create a [personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) named `PA_TOKEN` and add it as a [secret](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets) to your forked repository.
-1. Commit to master a single, standard Tailwind CSS config file placed inside the `configs/` directory.
-1. If you only commit a single file, the repo will compile that one config. If you commit multiple files, then the entire config folder will be rebuilt.
-1. Editing a config file is also OK. You can also namespace your configs, and delete them. Delete the examples too if you'd like.
-1. That's it!
+1. Create a [personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) named `PA_TOKEN` and add it as a [secret](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets) to your new repository.
+1. Commit to master a Tailwind CSS config file placed inside the `configs/` directory.
+1. That's it! The CSS file is processed and built with GitHub Actions automatically.
 
 ## How to use
 The system will auto release on any push to master. After a few minutes, you should be able to use your script in the following way:
@@ -28,6 +26,11 @@ The system will auto release on any push to master. After a few minutes, you sho
 ```
 
 ## FAQ
+**Question:** What else should I know?
+
+**Answer:** Editing a config file is also OK. You can also namespace your configs, and delete them. Delete the examples too if you'd like. If you only commit a single file, the repo will compile that one config. If you commit multiple files anywhere, then the entire config folder will be rebuilt.
+
+##
 **Question:** Can I use this in production?
 
 **Answer:** I wouldn't. For production you will want to use a build tool so that you can purge your unused CSS.
