@@ -26,7 +26,7 @@ jobs:
         run: |
           npm ci
           echo ::set-env name=TAILWIND_VERSION::$(npm view tailwindcss version)
-      - name: Verify PR integrity
+      - name: Determine Build Files
         shell: bash
         run: |
           if [[ $(git diff --diff-filter=A --name-only) != configs* ]]; then
@@ -67,19 +67,10 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Add Build
-      - name: Merge into master
-        uses: "pascalgn/automerge-action@v0.11.0"
-        env:
-          MERGE_LABELS: ""
-          MERGE_METHOD: "squash"
-          MERGE_DELETE_BRANCH: true
-          GITHUB_TOKEN: "${{ secrets.PA_TOKEN }}"
-      - name: Tag with Tailwind CSS version prepended
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ env.TAILWIND_VERSION }}-0-1-0-${{ github.run_id }}-${{ github.run_number }}
-          release_name: v${{ env.TAILWIND_VERSION }}-0-1-0-${{ github.run_id }}-${{ github.run_number }}
-          draft: false
-          prerelease: false
+      # - name: Merge into master
+      #   uses: "pascalgn/automerge-action@v0.11.0"
+      #   env:
+      #     MERGE_LABELS: ""
+      #     MERGE_METHOD: "squash"
+      #     MERGE_DELETE_BRANCH: true
+      #     GITHUB_TOKEN: "${{ secrets.PA_TOKEN }}"
