@@ -26,7 +26,7 @@ jobs:
       - name: Install Tailwind CSS
         run: |
           npm ci
-          echo ::set-env name=TAILWIND_VERSION::$(npm view tailwindcss version)
+          echo "TAILWIND_VERSION=$(npm view tailwindcss version)" >> $GITHUB_ENV
       - name: Tag with Tailwind CSS version prepended
         uses: actions/create-release@v1
         env:
