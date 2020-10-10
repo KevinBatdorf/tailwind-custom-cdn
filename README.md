@@ -2,14 +2,15 @@
 
 A simple, automated tool for creating custom Tailwind CSS builds for CDN access. Use this for development when you don't want to deal with setting up a builder right away.
 
+> ⚠ It's required to fork this repo.
+
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/KevinBatdorf/tailwind-custom-cdn?label=version&style=flat-square)
 
 ## How it works
-1. Submit a Pull Request with a single, standard Tailwind CSS config file placed inside the `configs/` directory.
-2. If all goes well, The Pull Request will automatically merge into master, and a release will be created.
-3. That's it!
-
-> Shy to make a Pull Request? That's understandable! Check out the FAQs for how to run this on your own.
+1. Fork this repo
+1. Commit to master a single, standard Tailwind CSS config file placed inside the `configs/` directory.
+1. If you only commit a single file, the repo will compile that one config. If you commit multiple files, then the entire config folder will be rebuilt (useful also for when dependabot commits are made to update tailwind)
+1. That's it!
 
 ## How to use
 The system will auto release on any push to master. After a few minutes, you should be able to use your script in the following way:
@@ -24,30 +25,15 @@ The system will auto release on any push to master. After a few minutes, you sho
 <script src="https://cdn.jsdelivr.net/gh/kevinbatdorf/tailwind-custom-cdn@v1.8.10-0-1-0-282636193-24/builds/example.min.css"></script>
 ```
 
-## Guidelines
-- Be polite and keep the file names appropriate enough.
-- Do not use any official sounding directory name unless you have the rights.
-- Do not try to mess things up. If you find a bug, be nice and open an issue.
-
 ## FAQ
 **Question:** Can I use this in production?
 
 **Answer:** I wouldn't. For production you will want to use a build tool so that you can purge your unused CSS.
 
 ##
-**Question:** Can I use this on my own?
+**Question:** Do I commit to your repo?
 
-**Answer:** Definitely! That's encouraged even. Just fork this repository, then under "Interaction limits" on the settings tab, limit the Pull Requests to those with write access only. You will also have to make a Personal Access Token for GitHub and add it to the Secrets settings area. Name that `PA_TOKEN`. Open an issue if you run into any difficulties and I'll help out if I can.
-
-##
-**Question:** Can I add multiple config files?
-
-**Answer:** Sure, but each Pull Request needs to have only one file added, so you would need to create a Pull Request for each.
-
-##
-**Question:** Help! I made a mistake!
-
-**Answer:** Just open a PR with the fix and I'll delete the original file so that the system will allow for the re-build. Be sure to tag me as I may not be monitoring everything here. Or you can just push a new config file with a different name.
+**Answer:** Only if you spot a bug or have an improvement. Otherwise you should fork this and use it on your own account.
 
 ##
 **Question:** What about plugins?
@@ -57,7 +43,7 @@ The system will auto release on any push to master. After a few minutes, you sho
 ##
 **Question:** Can others use my config file?
 
-**Answer:** Yes, so just keep that in mind and don't include anything considered sensitive data in your config file. I can delete the config file if needed but won't be able to prune the entire git history.
+**Answer:** The repo needs to be public, so yes. If you're using this you should be aware of that and not include anything sensitive in your config.
 
 ##
 **Question:** Is the cache working?
