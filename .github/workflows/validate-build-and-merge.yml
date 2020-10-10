@@ -24,6 +24,7 @@ jobs:
           node-version: '14'
       - name: Install Tailwind CSS
         run: |
+          echo ${{ github.actor }}
           npm ci
       - name: Check Changes
         id: git-diff
