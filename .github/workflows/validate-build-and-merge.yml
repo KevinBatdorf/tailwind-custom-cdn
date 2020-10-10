@@ -24,32 +24,37 @@ jobs:
           node-version: '14'
       - name: Install Tailwind CSS
         run: |
-          echo ${{ github.actor }}
           npm ci
-      - name: Check Changes
-        id: git-diff
+      - name: Check Config Changes
+        id: git-diff-config
         uses: technote-space/get-diff-action@v4
         with:
           PATTERNS: |
             +(configs)/**/*.js
+      - name: Check Build Changes
+        id: git-diff-build
+        uses: technote-space/get-diff-action@v4
+        with:
+          PATTERNS: |
+            +(builds)/**/*.css
       - name: Validate Config File
         shell: bash
-        if: steps.git-diff.outputs.count == 1
+        if: steps.git-diff-config.outputs.count == 1 && !steps.git-diff-build.outputs.count
         run: |
-          CONFIG_FILE=${{ steps.git-diff.outputs.diff }}
+          CONFIG_FILE=${{ steps.git-diff-config.outputs.diff }}
           node validate.js $CONFIG_FILE
       - name: Build Tailwind Single Config
         shell: bash
-        if: steps.git-diff.outputs.count == 1
+        if: steps.git-diff-config.outputs.count == 1 && !steps.git-diff-build.outputs.count
         run: |
-          CONFIG_FILE=${{ steps.git-diff.outputs.diff }}
+          CONFIG_FILE=${{ steps.git-diff-config.outputs.diff }}
           OUTPUT_FILE="builds/"
           OUTPUT_FILE+=${CONFIG_FILE#"configs/"}
           OUTPUT_FILE=${OUTPUT_FILE%.*}.css
           npx tailwindcss build style.css -o $OUTPUT_FILE -c $CONFIG_FILE
       - name: Build Tailwind Multiple Config
         shell: bash
-        if: steps.git-diff.outputs.count != 1
+        if: steps.git-diff-config.outputs.count != 1 && !steps.git-diff-build.outputs.count
         run: |
           # Build everything in config
           for c in $(find configs -not -name '*.json'); do
