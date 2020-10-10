@@ -31,7 +31,7 @@ See it in use: https://github.com/KevinBatdorf/tailwind-css-cdn
 ## FAQ
 **Question:** What else should I know?
 
-**Answer:** Editing a config file is also OK. You can also namespace your configs, and delete them. Delete the examples too if you'd like. If you only commit a single file, the repo will compile that one config. If you commit multiple files anywhere, then the entire config folder will be rebuilt.
+**Answer:** Editing a config file is also OK. You can also namespace your configs into separate directories. Delete the examples, or any config too if you'd like. If you only commit a single file, the repo will compile that one config. If you commit multiple files anywhere, then the entire config folder will be rebuilt.
 
 ##
 **Question:** Can I use this in production?
@@ -51,12 +51,12 @@ See it in use: https://github.com/KevinBatdorf/tailwind-css-cdn
 ##
 **Question:** Do I commit to your repo?
 
-**Answer:** Only if you spot a bug or have an improvement. Otherwise you should fork this and use it on your own account.
+**Answer:** Only if you spot a bug or have an improvement. Otherwise you should generate from the template (or fork it) and use it on your own account.
 
 ##
 **Question:** What about plugins?
 
-**Answer:** Plugins aren't supported now, and I haven't looked into it. If there is some demand for plugins then I'll look into adding plugin support.
+**Answer:** Plugins aren't supported now, and I haven't looked into it. If there is some demand for plugins then I'll look into adding plugin support (show your support by giving the repo a star).
 
 ##
 **Question:** Can others use my config file?
