@@ -5,7 +5,7 @@ A simple, automated tool for creating custom Tailwind CSS builds for CDN access.
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/KevinBatdorf/tailwind-custom-cdn?label=version&style=flat-square)
 
 ## How it works
-1. Fork this repo (required)
+1. Press "Use this template"
 1. Create a [personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) named `PA_TOKEN` and add it as a [secret](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets) to your forked repository.
 1. Commit to master a single, standard Tailwind CSS config file placed inside the `configs/` directory.
 1. If you only commit a single file, the repo will compile that one config. If you commit multiple files, then the entire config folder will be rebuilt.
