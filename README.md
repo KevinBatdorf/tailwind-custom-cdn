@@ -26,6 +26,8 @@ The system will auto release on any push to master. After a few minutes, you sho
 <script src="https://cdn.jsdelivr.net/gh/KevinBatdorf/tailwind-custom-cdn@v1.8.10-0-1-0-282636193-24/builds/example.min.css"></script>
 ```
 
+See it in use: https://github.com/KevinBatdorf/tailwind-css-cdn
+
 ## FAQ
 **Question:** What else should I know?
 
