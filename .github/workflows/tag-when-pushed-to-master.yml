@@ -21,13 +21,16 @@ jobs:
           if [[ $(git diff --name-only) != builds* ]]; then
             # Files added outside /builds, don't tag
             echo 'Files were changed from outside build folder, Not creating release'
+            echo "DONT_RELEASE=1" >> $GITHUB_ENV
             exit 0 # Will fail gracefully
           fi
       - name: Install Tailwind CSS
+        if: ${{ !env.DONT_RELEASE }}
         run: |
           npm ci
           echo "TAILWIND_VERSION=$(npm view tailwindcss version)" >> $GITHUB_ENV
       - name: Tag with Tailwind CSS version prepended
+        if: ${{ !env.DONT_RELEASE }}
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
