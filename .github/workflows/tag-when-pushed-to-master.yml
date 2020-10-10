@@ -16,21 +16,18 @@ jobs:
         with:
           node-version: '14'
       - name: Only run if build files changed
-        shell: bash
-        run: |
-          if [[ $(git diff --name-only) != builds* ]]; then
-            # Files added outside /builds, don't tag
-            echo 'Files were changed from outside build folder, Not creating release'
-            echo "DONT_RELEASE=1" >> $GITHUB_ENV
-            exit 0 # Will fail gracefully
-          fi
+        id: git-diff-build
+        uses: technote-space/get-diff-action@v4
+        with:
+          PATTERNS: |
+            +(builds)/**/*.css
       - name: Install Tailwind CSS
-        if: ${{ !env.DONT_RELEASE }}
+        if: steps.git-diff-build.outputs.count != 0
         run: |
           npm ci
           echo "TAILWIND_VERSION=$(npm view tailwindcss version)" >> $GITHUB_ENV
       - name: Tag with Tailwind CSS version prepended
-        if: ${{ !env.DONT_RELEASE }}
+        if: steps.git-diff-build.outputs.count != 0
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
