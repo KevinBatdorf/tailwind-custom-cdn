@@ -28,19 +28,17 @@ jobs:
           echo ::set-env name=TAILWIND_VERSION::$(npm view tailwindcss version)
       - name: Verify PR integrity
         shell: bash
-        env:
-          BASE: ${{ github['base_ref'] }}
         run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/${BASE}:refs/remotes/origin/${BASE}
-          if [[ $(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`) != configs* ]]; then
+          if [[ $(git diff --diff-filter=A --name-only) != configs* ]]; then
             # Files added outside /config
             echo 'Only files were added from outside config, do nothing'
             exit 1
           fi
-          # Multiple files changed, rebuild everything
-          if [ $(git diff --name-only `git merge-base origin/master HEAD` | wc -l) != 1 ]; then
+          # Multiple files changed, rebuild everything (possible improvement would be to check specific changes, config/package.json, etc)
+          if [ $(git diff --name-only | wc -l) != 1 ]; then
             echo ::set-env name=REBUILD_ALL::1
           fi
+          # Another improvment would be to check whether multiple files only in config were added, then only build those
       - name: Validate Config File
         shell: bash
         run: |
