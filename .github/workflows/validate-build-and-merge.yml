@@ -41,7 +41,7 @@ jobs:
         shell: bash
         if: steps.git-diff.outputs.count == 1
         run: |
-          CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
+          CONFIG_FILE=${{ steps.git-diff.outputs.diff }}
           OUTPUT_FILE="builds/"
           OUTPUT_FILE+=${CONFIG_FILE#"configs/"}
           OUTPUT_FILE=${OUTPUT_FILE%.*}.css
