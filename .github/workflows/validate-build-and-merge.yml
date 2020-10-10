@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PA_TOKEN }}
       - name: Setup Node
         uses: actions/setup-node@v2-beta
         with:
