@@ -18,6 +18,7 @@ jobs:
       - name: Only run if build files changed
         shell: bash
         run: |
+          echo ${{ github.actor }}
           if [[ $(git diff --name-only) != builds* ]]; then
             # Files added outside /builds, don't tag
             echo 'Files were changed from outside build folder, Not creating release'
