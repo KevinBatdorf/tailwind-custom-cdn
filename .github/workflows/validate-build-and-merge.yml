@@ -28,12 +28,6 @@ jobs:
       - name: Determine Build Files
         shell: bash
         run: |
-          if [[ $(git diff --name-only | grep configs* | wc -l) == 0 ]]; then
-            # Files added outside /config only
-            echo $(git diff --name-only)
-            echo 'Only files were added from outside config, do nothing'
-            exit 1
-          fi
           # Multiple files changed, rebuild everything (possible improvement would be to check specific changes, config/package.json, etc)
           if [[ $(git diff --name-only --diff-filter=AMDR | grep configs* | wc -l) != 1 ]; then
             echo "REBUILD_ALL=1" >> $GITHUB_ENV
