@@ -42,6 +42,11 @@ The system will auto release on any push to master. After a few minutes, you sho
 **Answer:** You should just make some trivial changes and commit again. That will rebuild all the configs. I would just bump the version number in the package.json file, for example.
 
 ##
+**Question:** What permissions do I need for the access token?
+
+**Answer:** I'm not entirely sure, but I used `admin:repo_hook, repo, workflow`
+
+##
 **Question:** Do I commit to your repo?
 
 **Answer:** Only if you spot a bug or have an improvement. Otherwise you should fork this and use it on your own account.
