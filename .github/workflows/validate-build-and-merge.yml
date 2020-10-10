@@ -30,6 +30,7 @@ jobs:
         run: |
           if [[ $(git diff --name-only --diff-filter=AMDR | grep configs* | wc -l) == 0 ]]; then
             # Files added outside /config only
+            echo $(git diff --name-only --diff-filter=AMDR | grep configs* | wc -l)
             echo 'Only files were added from outside config, do nothing'
             exit 1
           fi
