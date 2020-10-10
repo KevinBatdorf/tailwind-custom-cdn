@@ -21,7 +21,7 @@ module.exports = {
           cyan: '#9cdbff',
         },
         spacing: {
-          '96': '23rem',
+          '96': '24rem',
           '128': '32rem',
         }
       }
