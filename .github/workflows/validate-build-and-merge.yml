@@ -39,13 +39,13 @@ jobs:
             +(builds)/**/*.css
       - name: Validate Config File
         shell: bash
-        if: steps.git-diff-config.outputs.count == 1 && !steps.git-diff-build.outputs.count
+        if: steps.git-diff-config.outputs.count == 1 && steps.git-diff-build.outputs.count == 0
         run: |
           CONFIG_FILE=${{ steps.git-diff-config.outputs.diff }}
           node validate.js $CONFIG_FILE
       - name: Build Tailwind Single Config
         shell: bash
-        if: steps.git-diff-config.outputs.count == 1 && !steps.git-diff-build.outputs.count
+        if: steps.git-diff-config.outputs.count == 1 && steps.git-diff-build.outputs.count == 0
         run: |
           CONFIG_FILE=${{ steps.git-diff-config.outputs.diff }}
           OUTPUT_FILE="builds/"
@@ -54,7 +54,7 @@ jobs:
           npx tailwindcss build style.css -o $OUTPUT_FILE -c $CONFIG_FILE
       - name: Build Tailwind Multiple Config
         shell: bash
-        if: steps.git-diff-config.outputs.count != 1 && !steps.git-diff-build.outputs.count
+        if: steps.git-diff-config.outputs.count != 1 && steps.git-diff-build.outputs.count == 0
         run: |
           # Build everything in config
           for c in $(find configs -not -name '*.json'); do
