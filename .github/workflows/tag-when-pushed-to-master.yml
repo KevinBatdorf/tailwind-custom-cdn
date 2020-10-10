@@ -25,6 +25,7 @@ jobs:
         if: steps.git-diff-build.outputs.count != 0
         run: |
           npm ci
+          echo ${{ steps.git-diff-build.outputs.diff }}
           echo "TAILWIND_VERSION=$(npm view tailwindcss version)" >> $GITHUB_ENV
       - name: Tag with Tailwind CSS version prepended
         if: steps.git-diff-build.outputs.count != 0
