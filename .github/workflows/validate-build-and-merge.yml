@@ -23,28 +23,21 @@ jobs:
       - name: Install Tailwind CSS
         run: |
           npm ci
-      - name: Determine Build Files
-        shell: bash
-        run: |
-          if [[ $(git diff --name-only | grep configs* | wc -l) == 0 ]]; then
-            # Files added outside /config only
-            echo $(git diff --name-only)
-            echo 'Only files were added from outside config, do nothing'
-            exit 1
-          fi
-          # Multiple files changed, rebuild everything (possible improvement would be to check specific changes, config/package.json, etc)
-          if [[ $(git diff --name-only --diff-filter=AMDR | grep configs* | wc -l) != 1 ]; then
-            echo "REBUILD_ALL=1" >> $GITHUB_ENV
-          fi
-          # Another improvment would be to check whether multiple files only in config were added, then only build those
+      - name: Check Changes
+        id: git-diff
+        uses: technote-space/get-diff-action@v4
+        with:
+          PATTERNS: |
+            +(configs)/**/*.js
       - name: Validate Config File
         shell: bash
+        if: steps.git-diff.outputs.count == 1
         run: |
-          CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
+          CONFIG_FILE=${{ steps.git-diff.outputs.diff }}
           node validate.js $CONFIG_FILE
       - name: Build Tailwind Single Config
         shell: bash
-        if: ${{ env.REBUILD_ALL }}
+        if: steps.git-diff.outputs.count == 1
         run: |
           CONFIG_FILE=$(git diff --diff-filter=A --name-only `git merge-base origin/master HEAD`)
           OUTPUT_FILE="builds/"
@@ -53,7 +46,7 @@ jobs:
           npx tailwindcss build style.css -o $OUTPUT_FILE -c $CONFIG_FILE
       - name: Build Tailwind Multiple Config
         shell: bash
-        if: ${{ !env.REBUILD_ALL }}
+        if: steps.git-diff.outputs.count != 1
         run: |
           # Build everything in config
           for c in $(find configs -not -name '*.json'); do
