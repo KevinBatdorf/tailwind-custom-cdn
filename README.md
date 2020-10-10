@@ -33,6 +33,11 @@ The system will auto release on any push to master. After a few minutes, you sho
 **Answer:** I wouldn't. For production you will want to use a build tool so that you can purge your unused CSS.
 
 ##
+**Question:** A config file didn't build or something went wrong. What do I do?
+
+**Answer:** You should just make some trivial changes and commit again. That will rebuild all the configs. I would just bump the version number in the package.json file, for example.
+
+##
 **Question:** Do I commit to your repo?
 
 **Answer:** Only if you spot a bug or have an improvement. Otherwise you should fork this and use it on your own account.
