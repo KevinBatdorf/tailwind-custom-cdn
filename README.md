@@ -6,6 +6,7 @@ A simple, automated tool for creating custom Tailwind CSS builds for CDN access.
 
 ## How it works
 1. Press "Use this template"
+1. On the "Actions" tab, enable actions for your repo
 1. Create a [personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) named `PA_TOKEN` and add it as a [secret](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets) to your new repository.
 1. Commit to master a Tailwind CSS config file placed inside the `configs/` directory.
 1. That's it! The CSS file is processed and built with GitHub Actions automatically.
