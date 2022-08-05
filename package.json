@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/KevinBatdorf/tailwind-custom-cdn#readme",
   "dependencies": {
-    "tailwindcss": "^1.9.6"
+    "tailwindcss": "^3.1.8"
   }
 }
